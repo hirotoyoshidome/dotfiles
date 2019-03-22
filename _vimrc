@@ -12,6 +12,9 @@ set nobackup
 " スワップファイルを作らない
 set noswapfile
 
+" undoファイルを作らない
+set noundofile
+
 " 編集中のファイルが変更されたら自動で読み直す
 set autoread
 
