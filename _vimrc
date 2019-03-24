@@ -6,6 +6,8 @@ set diffexpr=MyDiff()
 "文字コードをUFT-8に設定
 set fenc=utf-8
 scriptencoding utf-8
+set encoding=utf-8
+set fileencodings=utf-8,cp932,euc-jp,sjis
 
 " バックアップファイルを作らない
 set nobackup
