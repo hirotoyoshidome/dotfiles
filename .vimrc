@@ -27,6 +27,10 @@ set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
+" 自動で改行されるのを無効化する
+set textwidth=0
+set formatoptions=q
+
 " looks
 " 行番号を表示
 set number
