@@ -1,4 +1,6 @@
-# vimrc
+# dotfiles
 
-* 自宅PCのvimrcファイル
+* vimrc
+* bashrc
+* bash_profile
 
