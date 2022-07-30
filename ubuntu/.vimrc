@@ -1,21 +1,15 @@
 source $VIMRUNTIME/vimrc_example.vim
-
 set diffexpr=MyDiff()
 
-" setting
-"文字コードをUFT-8に設定
+" ENCODING.
 set fenc=utf-8
 scriptencoding utf-8
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp,sjis
 
-" バックアップファイルを作らない
+" NO CREATE FILES.
 set nobackup
-
-" スワップファイルを作らない
 set noswapfile
-
-" undoファイルを作らない
 set noundofile
 
 " 編集中のファイルが変更されたら自動で読み直す
@@ -31,11 +25,8 @@ set showcmd
 set textwidth=0
 set formatoptions=q
 
-" looks
-" 行番号を表示
+" DISPLAY.
 set number
-
-" 現在の行、列を強調表示
 set cursorline
 set cursorcolumn
 
@@ -123,4 +114,10 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
+
+" Pathogen (plugin manager.)
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 
