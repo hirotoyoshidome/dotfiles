@@ -10,5 +10,6 @@ cd ~/.vim/bundle
 git clone https://github.com/zah/nim.vim.git
 git clone https://github.com/scrooloose/syntastic.git
 git clone https://github.com/preservim/nerdtree.git
+git clone https://github.com/vim-airline/vim-airline.git
 ```
 
