@@ -7,7 +7,7 @@ scriptencoding utf-8
 set encoding=utf-8
 set fileencodings=utf-8,cp932,euc-jp,sjis
 
-" NO CRETE FILES.
+" NO CREATE FILES.
 set nobackup
 set noswapfile
 set noundofile
