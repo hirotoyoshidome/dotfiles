@@ -9,5 +9,6 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/
 cd ~/.vim/bundle
 git clone https://github.com/zah/nim.vim.git
 git clone https://github.com/scrooloose/syntastic.git
+git clone https://github.com/preservim/nerdtree.git
 ```
 
