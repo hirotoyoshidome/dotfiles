@@ -124,6 +124,8 @@ function MyDiff()
   endif
 endfunction
 
+
+" Pathogen (plugin manager.)
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
