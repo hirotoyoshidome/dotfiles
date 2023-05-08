@@ -1,5 +1,12 @@
-alias ll='ls -la'
+# "-F":ディレクトリに"/"を表示 / "-G"でディレクトリを色表示
+alias ls='ls -FG'
+alias ll='ls -alFG'
 alias lll='ls -alrt'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+
+
 # default:cyan / root:red
 if [ $UID -eq 0 ]; then
     PS1="\[\033[31m\]\u@\h\[\033[00m\]:\[\033[01m\]\w\[\033[00m\]\\$ "
@@ -7,18 +14,10 @@ else
     PS1="\[\033[36m\]\u@\h\[\033[00m\]:\[\033[01m\]\w\[\033[00m\]\\$ "
 fi
 
-# "-F":ディレクトリに"/"を表示 / "-G"でディレクトリを色表示
-alias ls='ls -FG'
-alias ll='ls -alFG'
 
 # mac
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
-fi
-
-export PATH=/Users/yoshitomehiroto/.nodebrew/current/bin:$PATH
-
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
+  . $(brew --prefix)/etc/bash_completion
 fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
