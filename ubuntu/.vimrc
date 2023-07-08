@@ -126,3 +126,6 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+" ctrl + eでディレクトリtreeを開く
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
