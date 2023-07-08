@@ -12,6 +12,9 @@ git clone https://github.com/vim-airline/vim-airline.git
 * syntastic - 構文エラーチェック
 * vim-airline - 表示をかっこよく
 
+### C/C++用
+* https://github.com/justmao945/vim-clang
+
 ### Nim用の設定(~/.vim/bundleにcloneする)
 * choosenim
   * https://nim-lang.org/install_unix.html
