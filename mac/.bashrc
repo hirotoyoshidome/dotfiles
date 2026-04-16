@@ -15,10 +15,23 @@ else
 fi
 
 
-# mac
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Node.js
+eval "$(nodenv init -)"
+
+# bash-completion
 if [ -f $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion ]; then
   source $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion
 fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Git completion
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 
+# Python
+export PATH="$HOME/.pyenv/shims:$PATH"
+
+# omohi
+export PATH="$HOME/.local/bin:$PATH"
+source "$HOME/.local/share/bash-completion/completions/omohi"
