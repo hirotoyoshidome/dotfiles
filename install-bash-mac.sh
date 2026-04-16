@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 # copy .bash_profile and .bashrc to home directory.
 # if exists, backup them to .bash_profile.bak and .bashrc.bak
 # and then copy .bash_profile and .bashrc from this repository.
