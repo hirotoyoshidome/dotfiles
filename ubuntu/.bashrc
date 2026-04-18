@@ -116,10 +116,41 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Add a directory to PATH only when it exists and is not already present.
+path_prepend() {
+    [ -d "$1" ] || return
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) PATH="$1:$PATH" ;;
+    esac
+}
+
+# Optional tool settings.
+
+# omohi bash completion
+omohi_completion="$HOME/.local/share/bash-completion/completions/omohi"
+[ -r "$omohi_completion" ] && . "$omohi_completion"
+
 # Gradle
-export GRADLE_HOME=/opt/gradle/gradle-5.0
-export PATH=${GRADLE_HOME}/bin:${PATH}
+#export GRADLE_HOME=/opt/gradle/gradle-5.0
+#export PATH=${GRADLE_HOME}/bin:${PATH}
 
 # Nim
-export PATH=/home/hiroto/.nimble/bin:$PATH
+#export PATH=/home/hiroto/.nimble/bin:$PATH
 
+# sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# java
+java_home="/usr/lib/jvm/java-21-openjdk-amd64"
+[ -d "$java_home" ] && export JAVA_HOME="$java_home"
+[ -n "${JAVA_HOME:-}" ] && path_prepend "$JAVA_HOME/bin"
+
+# zig
+path_prepend "/opt/zig"
