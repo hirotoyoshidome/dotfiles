@@ -20,9 +20,16 @@ description: Git operation rules for this user — staged-only commits, no unsol
 - unstaged / untracked に関連しそうな変更が残っていても、勝手に add せず「〜がstagingされていないようです」と指摘するだけに留める
 - コミットメッセージは簡潔に。`git log --oneline` で既存のトーンを確認して合わせる
 
+## コミット・PRの粒度
+
+- 1コミット=1関心事。依頼されたコミットが複数の関心事(実装 / 配線 / ドキュメント / テスト など)を含む場合は、分割を提案する
+  - 例: store層の実装 → CLIへの配線 → ドキュメント → テスト、をそれぞれ別コミットにするスタイル
+- PRは小さく焦点を絞る。大きな変更は小さいPR単位への分割を提案する
+- PR本文は要点2〜5行で簡潔に。breaking change がある場合は必ず明記する
+
 ## ブランチ
 
-- 命名は `feature/xxx` 形式
+- 命名は `feature/xxx` 形式が主。バグ修正は `fix/xxx`、ドキュメントのみの変更は `docs/xxx` も可
 - ブランチ作成も依頼されたときのみ
 
 ## PR作成
@@ -32,3 +39,15 @@ description: Git operation rules for this user — staged-only commits, no unsol
 - **draft** で作成する
 - 向き先は **master または派生元ブランチ**。どちらか不明瞭な場合は確認する
 - **PR本文は日本語**で書く(タイトルも日本語で問題ない)
+
+## AI支援の透明性
+
+- AI支援で作成したコミットに `Co-authored-by:` トレーラーを付けるのは可
+- ブランチ名・コミット件名・PRタイトルにAIツール名の飾り(`[AI]` 等)を付けない(明示指示がある場合を除く)
+
+## 禁止事項
+
+- 依頼されていない commit / branch作成 / push / PR作成 / タグ付け
+- 明示指示のない `git add`(staged外の変更を勝手に含めること)
+- `git reset --hard` / `push --force` など履歴を破壊する操作を確認なしで実行すること
+- 複数の関心事が混ざったコミットを、分割の提案なしに作ること

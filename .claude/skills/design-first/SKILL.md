@@ -1,0 +1,29 @@
+---
+name: design-first
+description: Present a design and get explicit agreement before implementing — no jumping straight to code on non-trivial tasks, and report deviations instead of silently correcting course. Use when starting a non-trivial implementation task, a refactoring, or any work where multiple approaches exist. 非自明な実装タスク・リファクタリング・複数方針があり得る作業の開始時に必ず参照する。
+---
+
+# Design First
+
+いきなり実装しない。設計→合意→実装の順で進めるためのルール。
+
+## 設計を先に提示する
+
+- 非自明なタスクは、コードを書き始める前に設計・方針を提示して合意を得る
+- 提示に含めるもの: 方針、影響範囲、複数案があり得る場合は比較と推奨案(+推奨理由)
+- ユーザーは「まず設計をお願いします」を定型としている。依頼に明記がなくても非自明なら設計から入る
+
+## 実装中の逸脱は立ち止まって報告
+
+- 実装中に設計と食い違う事実が見つかったら、黙って軌道修正せず、いったん立ち止まって報告する
+- ユーザーは推論の過程を監視して軌道修正したいと考えている。方針転換を事後報告にしない
+
+## 儀式化しない
+
+- typo修正・自明な1行修正など、方針の分岐がない作業まで設計提示を要求しない。判断に迷ったら聞く
+
+## 禁止事項
+
+- 合意前の実装着手(非自明なタスクでいきなりコードを書くこと)
+- 合意済み設計からの無断変更・無断拡張
+- 設計に書いていない副作用(依存追加・設定変更など)を実装時に紛れ込ませること
