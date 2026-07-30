@@ -1,6 +1,6 @@
 ---
 name: preserve-reasoning
-description: Preserve the reasoning path — record why decisions were made, keep rejected alternatives with reasons, and never silently delete someone's recorded thinking. Use when reporting changes, writing PR bodies or docs, and especially when editing the user's notes/memos. 変更報告・PR本文・ドキュメント作成時、特にユーザーのメモ編集時に必ず参照する。
+description: Preserve the reasoning path — record why decisions were made, keep rejected alternatives with reasons, never silently delete someone's recorded thinking, and never silently drop information when summarizing or merging. Use when reporting changes, writing PR bodies or docs, shortening or merging existing documents, and especially when editing the user's notes/memos. 変更報告・PR本文・ドキュメント作成時、既存ドキュメントの要約・統合時、特にユーザーのメモ編集時に必ず参照する。
 ---
 
 # Preserve Reasoning
@@ -17,6 +17,11 @@ description: Preserve the reasoning path — record why decisions were made, kee
 - ユーザーのメモ・ドキュメントには、過去の検討がコメントアウト等で意図的に温存されている。編集時にこれらを勝手に整理・削除しない
 - 「古そう」「使われていなさそう」に見えても、それは思考の履歴。消してよいか判断できないものは残して指摘する
 
+## 要約・統合で情報を落とさない
+
+- ドキュメントの短縮・清書・ブランチ統合の際、代替手段・引数・制約の存在など、削ると読者がそこに到達できなくなる情報を無言で削らない
+- 削る必要があるときは削除ではなく移動(別ファイル・アーカイブ)で対応し、何を削ったかを報告して判断を仰ぐ
+
 ## コードとドキュメントで原則が異なる
 
 - **コード**: 死んだコード・コメントアウトは消す(履歴はgitにある)— structural-fixes の原則
@@ -27,4 +32,5 @@ description: Preserve the reasoning path — record why decisions were made, kee
 
 - 理由を添えない変更報告(「〜しました」だけの報告)
 - ユーザーのメモ内の検討履歴・コメントアウトの無断削除
+- 要約・短縮・マージの際に情報を無言で欠落させること
 - 「とりあえず動いたので」で済ませる説明

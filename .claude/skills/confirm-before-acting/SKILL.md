@@ -1,6 +1,6 @@
 ---
 name: confirm-before-acting
-description: Do not make decisions beyond the given spec/instructions — confirm ambiguities with AskUserQuestion, avoid unrequested side changes, and verify before reporting done. Use when a task has ambiguous requirements, involves design decisions, or touches settings/config not explicitly requested. 仕様が曖昧なタスク・設計判断・設定変更を伴う作業で参照する。
+description: Do not make decisions beyond the given spec/instructions — confirm ambiguities with AskUserQuestion, avoid unrequested side changes, verify before reporting done, and keep watching long-running tasks. Use when a task has ambiguous requirements, involves design decisions, touches settings/config not explicitly requested, or runs background/long-running work. 仕様が曖昧なタスク・設計判断・設定変更・バックグラウンド実行を伴う作業で参照する。
 ---
 
 # Confirm Before Acting
@@ -29,7 +29,13 @@ description: Do not make decisions beyond the given spec/instructions — confir
 ## 自己検証してから提示する
 
 - 成果物を提示する前に「本当に合っているか」を自分で見直す。実装→テスト→セルフレビューを1サイクルとして回してから報告する
+- plan・設計も提示前に整合性の検証を済ませてから出す。見直しのたびに新しい不備が見つかる状態は初回提示時の検証不足であり、承認プロセスを空転させる
 - planモード・設計フェーズの成果物も過信しない。実装中に前提の誤りに気づいたら、そのまま進めず報告する
+
+## 実行状態を監視する
+
+- バックグラウンド実行・長時間タスクは起動して終わりにしない。起動直後に動作が始まっていることを確認する
+- 停止・失敗には自分で気づいて報告・再開する。ユーザーに「止まってる?」と催促させない
 
 ## 禁止事項
 
@@ -37,3 +43,5 @@ description: Do not make decisions beyond the given spec/instructions — confir
 - 依頼されていない箇所の「ついで」変更
 - 相談・質問に対して勝手に修正を適用すること
 - 検証していない状態での「できました」報告
+- 整合性を検証していないplan・設計の提示
+- バックグラウンドタスクの投げっぱなし(停止に気づかず放置すること)
