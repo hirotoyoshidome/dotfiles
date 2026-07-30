@@ -35,3 +35,11 @@ export PATH="$HOME/.pyenv/shims:$PATH"
 # omohi
 export PATH="$HOME/.local/bin:$PATH"
 source "$HOME/.local/share/bash-completion/completions/omohi"
+
+alias claude='claude --permission-mode plan'
+alias gcf='git commit -m fix'
+
+export PATH="$HOMEBREW_PREFIX/opt/tfenv/bin:$PATH"
+
+# export CLAUDE_CODE_DISABLE_MOUSE_CLICKS=1
+

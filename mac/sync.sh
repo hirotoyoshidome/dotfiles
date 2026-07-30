@@ -1,8 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-cp ~/.vimrc ./
-cp ~/.bash_profile ./
-cp ~/.bashrc ./
+set -eu
 
-exit 0
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
+exec "$SCRIPT_DIR/../import-current-settings.sh" "$@"
