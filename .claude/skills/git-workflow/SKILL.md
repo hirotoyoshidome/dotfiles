@@ -39,6 +39,7 @@ description: Git operation rules for this user — staged-only commits, no unsol
 - **draft** で作成する
 - 向き先は **master または派生元ブランチ**。どちらか不明瞭な場合は確認する
 - **PR本文は日本語**で書く(タイトルも日本語で問題ない)
+- 人手で必要な作業がある場合は、チェックリスト形式の独立セクションで書き、この PR の期待値(どうなれば成功か)を明記する
 
 ## AI支援の透明性
 

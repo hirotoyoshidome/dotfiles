@@ -27,6 +27,7 @@ description: Preserve the reasoning path — record why decisions were made, kee
 - **コード**: 死んだコード・コメントアウトは消す(履歴はgitにある)— structural-fixes の原則
 - **判断の記録**: 言語化してドキュメント・PR本文・報告に残す
 - 「消す対象(実装の残骸)」と「残す対象(判断の過程)」を混同しない
+- 簡潔さとの両立: 判断ログは 1〜2 行で簡潔に残す。残すのは判断の根拠であって経緯の物語ではない(書き方は concise-writing を参照)
 
 ## 禁止事項
 
