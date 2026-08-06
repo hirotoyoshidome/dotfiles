@@ -103,21 +103,11 @@ if [ "$APPLY" -eq 0 ]; then
   echo "Dry-run mode. Use --apply to import these settings."
 fi
 
+# Claude / Codex 関連(CLAUDE.md, skills, my.rules)は symlink 運用に移行したため
+# 逆取り込みの対象外(リポジトリの agents/ を直接編集する)。
 process_path "$HOME/.bash_profile" "$SCRIPT_DIR/mac/.bash_profile"
 process_path "$HOME/.bashrc" "$SCRIPT_DIR/mac/.bashrc"
 process_path "$HOME/.vimrc" "$SCRIPT_DIR/mac/.vimrc"
-process_path "$HOME/.codex/rules/my.rules" "$SCRIPT_DIR/.codex/rules/my.rules"
-process_path "$HOME/.claude/settings.local.json" "$SCRIPT_DIR/.claude/settings.json"
-process_path "$HOME/.claude/CLAUDE.md" "$SCRIPT_DIR/.claude/CLAUDE.md"
-
-if [ -d "$SCRIPT_DIR/.claude/skills" ]; then
-  for target_skill_dir in "$SCRIPT_DIR/.claude/skills"/*/; do
-    [ -d "$target_skill_dir" ] || continue
-    target_skill_dir="${target_skill_dir%/}"
-    skill_name="$(basename -- "$target_skill_dir")"
-    process_path "$HOME/.claude/skills/$skill_name" "$target_skill_dir"
-  done
-fi
 
 if [ "$APPLY" -eq 0 ]; then
   echo "Dry-run complete. No repository files were changed."
