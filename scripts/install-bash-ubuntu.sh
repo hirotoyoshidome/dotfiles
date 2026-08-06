@@ -2,8 +2,8 @@
 
 set -eu
 
-SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-SOURCE_FILE="$SCRIPT_DIR/ubuntu/.bashrc"
+REPO_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+SOURCE_FILE="$REPO_DIR/ubuntu/.bashrc"
 TARGET_FILE="$HOME/.bashrc"
 BACKUP_FILE="$HOME/.bashrc.bak"
 

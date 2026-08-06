@@ -2,7 +2,7 @@
 
 set -eu
 
-SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+REPO_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 APPLY=0
 
 usage() {
@@ -72,7 +72,7 @@ copy_path() {
 
   if [ -d "$source_path" ]; then
     case "$target_path" in
-      "$SCRIPT_DIR"/*)
+      "$REPO_DIR"/*)
         ;;
       *)
         echo "Refusing to replace directory outside repository: $target_path" >&2
@@ -105,9 +105,9 @@ fi
 
 # Claude / Codex 関連(CLAUDE.md, skills, my.rules)は symlink 運用に移行したため
 # 逆取り込みの対象外(リポジトリの agents/ を直接編集する)。
-process_path "$HOME/.bash_profile" "$SCRIPT_DIR/mac/.bash_profile"
-process_path "$HOME/.bashrc" "$SCRIPT_DIR/mac/.bashrc"
-process_path "$HOME/.vimrc" "$SCRIPT_DIR/mac/.vimrc"
+process_path "$HOME/.bash_profile" "$REPO_DIR/mac/.bash_profile"
+process_path "$HOME/.bashrc" "$REPO_DIR/mac/.bashrc"
+process_path "$HOME/.vimrc" "$REPO_DIR/mac/.vimrc"
 
 if [ "$APPLY" -eq 0 ]; then
   echo "Dry-run complete. No repository files were changed."

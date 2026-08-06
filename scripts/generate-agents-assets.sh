@@ -7,12 +7,12 @@
 
 set -eu
 
-SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-PERMISSIONS_FILE="$SCRIPT_DIR/agents/permissions.txt"
-SKILLS_DIR="$SCRIPT_DIR/agents/skills"
-AGENTS_MD="$SCRIPT_DIR/agents/AGENTS.md"
-CODEX_RULES="$SCRIPT_DIR/.codex/rules/my.rules"
-CLAUDE_SETTINGS="$SCRIPT_DIR/.claude/settings.json"
+REPO_DIR="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+PERMISSIONS_FILE="$REPO_DIR/agents/permissions.txt"
+SKILLS_DIR="$REPO_DIR/agents/skills"
+AGENTS_MD="$REPO_DIR/agents/AGENTS.md"
+CODEX_RULES="$REPO_DIR/.codex/rules/my.rules"
+CLAUDE_SETTINGS="$REPO_DIR/.claude/settings.json"
 
 for required in "$PERMISSIONS_FILE" "$AGENTS_MD" "$CLAUDE_SETTINGS"; do
   if [ ! -f "$required" ]; then

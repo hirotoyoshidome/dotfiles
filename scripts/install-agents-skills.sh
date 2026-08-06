@@ -6,7 +6,8 @@
 set -eu
 
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-SKILLS_DIR="$SCRIPT_DIR/agents/skills"
+REPO_DIR="$(dirname -- "$SCRIPT_DIR")"
+SKILLS_DIR="$REPO_DIR/agents/skills"
 
 if [ ! -d "$SKILLS_DIR" ]; then
   echo "Required directory not found: $SKILLS_DIR" >&2

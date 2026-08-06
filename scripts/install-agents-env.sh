@@ -7,8 +7,9 @@
 set -eu
 
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-CODEX_RULES="$SCRIPT_DIR/.codex/rules/my.rules"
-REPO_CLAUDE_SETTINGS="$SCRIPT_DIR/.claude/settings.json"
+REPO_DIR="$(dirname -- "$SCRIPT_DIR")"
+CODEX_RULES="$REPO_DIR/.codex/rules/my.rules"
+REPO_CLAUDE_SETTINGS="$REPO_DIR/.claude/settings.json"
 
 for required in "$CODEX_RULES" "$REPO_CLAUDE_SETTINGS"; do
   if [ ! -f "$required" ]; then

@@ -6,7 +6,8 @@
 set -eu
 
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
-AGENTS_MD="$SCRIPT_DIR/agents/AGENTS.md"
+REPO_DIR="$(dirname -- "$SCRIPT_DIR")"
+AGENTS_MD="$REPO_DIR/agents/AGENTS.md"
 
 if [ ! -f "$AGENTS_MD" ]; then
   echo "Required file not found: $AGENTS_MD" >&2
