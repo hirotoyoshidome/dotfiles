@@ -13,21 +13,20 @@ agents/
 
 ### インストール(symlink)
 
-用途別に3スクリプトに分かれている。すべて冪等で、既存の実体はタイムスタンプ付きで `~/.claude/backups/` / `~/.codex/backups/` へ退避される。
+実行はすべて `make` 経由(実体は `scripts/` 配下)。`make help` でターゲット一覧を表示する。すべて冪等で、既存の実体はタイムスタンプ付きで `~/.claude/backups/` / `~/.codex/backups/` へ退避される。
 
-| スクリプト | 対象 | 組織管理マシン |
+| ターゲット | 対象 | 組織管理マシン |
 |---|---|---|
-| `install-agents-instructions.sh` | `~/.claude/CLAUDE.md` / `~/.codex/AGENTS.md` → `agents/AGENTS.md` | 実行可 |
-| `install-agents-skills.sh` | `~/.claude/skills` → `agents/skills`、`~/.codex/skills/<name>` → `agents/skills/<name>`(skill単位。Codex同梱の `.system` を壊さないため) | 実行可 |
-| `install-agents-env.sh` | `~/.claude/settings.json` の `permissions.allow` マージ、`~/.codex/rules/my.rules` → `.codex/rules/my.rules` | 実行しない |
+| `make instructions` | `~/.claude/CLAUDE.md` / `~/.codex/AGENTS.md` → `agents/AGENTS.md` | 実行可 |
+| `make skills` | `~/.claude/skills` → `agents/skills`、`~/.codex/skills/<name>` → `agents/skills/<name>`(skill単位。Codex同梱の `.system` を壊さないため) | 実行可 |
+| `make env` | `~/.claude/settings.json` の `permissions.allow` マージ、`~/.codex/rules/my.rules` → `.codex/rules/my.rules` | 実行しない |
 
 ```sh
-# 個人マシン: 一括(3本を順に実行するラッパー)
-./install-agents-setting.sh
+# 個人マシン: 一括(instructions + skills + env)
+make install
 
 # 組織管理マシン: 環境設定には触れず、個人用の指示とskillだけ入れる
-./install-agents-instructions.sh
-./install-agents-skills.sh
+make instructions skills
 ```
 
 グローバル指示・skillの追加は組織設定に影響しない。一方 `~/.claude/settings.json` には組織・実機固有の設定が入るため、リンクせず `permissions.allow` キーのみマージ更新とし(env)、組織管理マシンでは env 自体を実行しない。
@@ -38,8 +37,8 @@ agents/
 - **許可コマンド**: `agents/permissions.txt` を編集して再生成する。生成先(`.codex/rules/my.rules`、`.claude/settings.json` の `permissions.allow`、`AGENTS.md` の skill 索引)は直接編集しない
 
 ```sh
-./generate-agents-assets.sh   # 冪等。編集後に実行し、差分を確認して commit
-./install-agents-env.sh       # permissions.allow の実機へのマージを再実行
+make generate   # 冪等。編集後に実行し、差分を確認して commit
+make env        # permissions.allow の実機へのマージを再実行
 ```
 
 ## macOS
@@ -47,7 +46,7 @@ agents/
 ### Install settings to this PC
 
 ```sh
-./install-bash-mac.sh
+make bash-mac
 ```
 
 ### Import current PC settings into this repository
@@ -55,8 +54,8 @@ agents/
 bash / vim の設定のみが対象(AI CLI 設定は symlink 運用のため対象外)。
 
 ```sh
-./import-current-settings.sh          # 差分表示のみ
-./import-current-settings.sh --apply  # リポジトリへ取り込み
+make import        # 差分表示のみ
+make import-apply  # リポジトリへ取り込み
 ```
 
 - `~/.bash_profile` -> `mac/.bash_profile`
