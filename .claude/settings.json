@@ -1,6 +1,9 @@
 {
   "permissions": {
     "allow": [
+      "Bash(zig test:*)",
+      "Bash(zig build:*)",
+      "Bash(sort:*)",
       "Bash(ls:*)",
       "Bash(pwd:*)",
       "Bash(cat:*)",

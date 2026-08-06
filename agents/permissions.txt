@@ -1,0 +1,27 @@
+# 許可コマンドprefixの単一ソース(1行1コマンド)。
+# ここを編集して ./generate-agents-assets.sh を実行すると、
+# .codex/rules/my.rules と .claude/settings.json の permissions.allow が再生成される。
+# 生成先を直接編集しないこと。
+zig test
+zig build
+sort
+ls
+pwd
+cat
+sed -n
+rg
+grep
+egrep
+fgrep
+awk
+find
+wc
+head
+tail
+tree
+git status
+git diff
+git log
+git show
+git rev-parse
+git branch
