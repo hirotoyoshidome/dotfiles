@@ -15,6 +15,7 @@ description: Express intent through types and names — design types that carry 
 ## 命名は責務を正確に
 
 - `util` / `common` / `core` / `helper` / `misc` のようなcatch-allバケット名を作らない。行き場のないコードは命名でごまかさず配置を再考する
+  - 例外: テストヘルパの共通util化は許容する(重複したセットアップの使い回しは保守性を上げる)。catch-all名の禁止はプロダクションコードの構造の話
 - `save` のような曖昧な動詞を避け、何をどう永続化・変更するのかが分かる名前にする(`update` は対象フィールドの粒度まで意識)
 
 ## 公開境界には契約を明記

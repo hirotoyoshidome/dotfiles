@@ -1,6 +1,6 @@
 ---
 name: confirm-before-acting
-description: Do not make decisions beyond the given spec/instructions — confirm ambiguities with AskUserQuestion, avoid unrequested side changes, verify before reporting done, and keep watching long-running tasks. Use when a task has ambiguous requirements, involves design decisions, touches settings/config not explicitly requested, or runs background/long-running work. 仕様が曖昧なタスク・設計判断・設定変更・バックグラウンド実行を伴う作業で参照する。
+description: Do not make decisions beyond the given spec/instructions — confirm ambiguities by asking the user, avoid unrequested side changes, verify before reporting done, and keep watching long-running tasks. Use when a task has ambiguous requirements, involves design decisions, touches settings/config not explicitly requested, or runs background/long-running work. 仕様が曖昧なタスク・設計判断・設定変更・バックグラウンド実行を伴う作業で参照する。
 ---
 
 # Confirm Before Acting
@@ -9,7 +9,7 @@ description: Do not make decisions beyond the given spec/instructions — confir
 
 ## 仕様にない判断は確認してから
 
-- 仕様・指示に記載のない判断を勝手にしない。実装方針が複数あり得る場合、影響範囲が指示から読み取れない場合は、**AskUserQuestion で確認してから**進める
+- 仕様・指示に記載のない判断を勝手にしない。実装方針が複数あり得る場合、影響範囲が指示から読み取れない場合は、**ユーザーに質問して確認してから**進める(Claude では AskUserQuestion を使う)
 - 自明なデフォルトがある場合はそれを採用してよいが、採用した判断は報告に明記する
 
 ## 依頼されていない箇所を触らない
@@ -20,6 +20,11 @@ description: Do not make decisions beyond the given spec/instructions — confir
 ## 相談と依頼を区別する
 
 - ユーザーが質問・相談・状況説明をしているだけのときは、**分析・回答を返して止まる**。修正の依頼があるまで変更を適用しない
+
+## 理解確認には明確に答える
+
+- ユーザーの「〜という理解で良いですか?」には、同意/不同意を最初に明確に返す。誤解が含まれていたら必ず訂正する
+- 部分的に正しい場合は「どこまで合っていて、どこが違うか」を切り分けて示す。曖昧に流して先へ進まない
 
 ## 完了報告の前に検証する
 
@@ -48,6 +53,7 @@ description: Do not make decisions beyond the given spec/instructions — confir
 - 仕様にない判断を確認なしで実装に反映すること
 - 依頼されていない箇所の「ついで」変更
 - 相談・質問に対して勝手に修正を適用すること
+- 理解確認の問いに同意/不同意を明示せず曖昧に流すこと(誤解の訂正漏れ)
 - 検証していない状態での「できました」報告
 - 整合性を検証していないplan・設計の提示
 - バックグラウンドタスクの投げっぱなし(停止に気づかず放置すること)

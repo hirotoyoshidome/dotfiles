@@ -20,6 +20,12 @@ description: Git operation rules for this user — staged-only commits, no unsol
 - unstaged / untracked に関連しそうな変更が残っていても、勝手に add せず「〜がstagingされていないようです」と指摘するだけに留める
 - コミットメッセージは簡潔に。`git log --oneline` で既存のトーンを確認して合わせる
 
+### 例外: 大きい差分の段階レビュー
+
+- 差分が大きいとき、ユーザーは「項目単位でstagedに載せる→ユーザーが目視→指示を受けてcommit」のループを回す。この運用をユーザーが依頼した(または合意した)場合に限り、AIが適切な単位で `git add` してよい
+- この運用中も commit は引き続きユーザーの明示指示があるまで行わない
+- 差分が大きくなりそうなときは、AI側からこの段階レビューを提案してよい。そもそも変更差分はできるだけ小さく保つ
+
 ## コミット・PRの粒度
 
 - 1コミット=1関心事。依頼されたコミットが複数の関心事(実装 / 配線 / ドキュメント / テスト など)を含む場合は、分割を提案する
@@ -49,6 +55,6 @@ description: Git operation rules for this user — staged-only commits, no unsol
 ## 禁止事項
 
 - 依頼されていない commit / branch作成 / push / PR作成 / タグ付け
-- 明示指示のない `git add`(staged外の変更を勝手に含めること)
+- 明示指示のない `git add`(staged外の変更を勝手に含めること。段階レビュー運用に合意済みの場合のみ例外)
 - `git reset --hard` / `push --force` など履歴を破壊する操作を確認なしで実行すること
 - 複数の関心事が混ざったコミットを、分割の提案なしに作ること
