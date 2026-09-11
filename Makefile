@@ -1,21 +1,12 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install instructions skills env generate permissions-check bash-mac bash-ubuntu import import-apply
+.PHONY: help install generate permissions-check bash-mac bash-ubuntu import import-apply
 
 help: ## ターゲット一覧を表示
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "%-18s %s\n", $$1, $$2}'
 
-install: ## AI CLI設定を一括インストール(個人マシン向け: instructions + skills + env)
-	./scripts/install-agents-setting.sh
-
-instructions: ## グローバル指示のみリンク(組織管理マシンでも実行可)
-	./scripts/install-agents-instructions.sh
-
-skills: ## skillsのみリンク(組織管理マシンでも実行可)
-	./scripts/install-agents-skills.sh
-
-env: ## 許可コマンド設定を反映(個人マシンのみ)
-	./scripts/install-agents-env.sh
+install: ## Codexへ配置(指示・skillsはリンク、許可コマンドはコピー)
+	./scripts/install-codex.sh
 
 generate: ## permissions.txt / SKILL.md から生成物を再生成
 	./scripts/generate-agents-assets.sh

@@ -103,7 +103,7 @@ if [ "$APPLY" -eq 0 ]; then
   echo "Dry-run mode. Use --apply to import these settings."
 fi
 
-# Claude / Codex 関連(CLAUDE.md, skills, my.rules)は symlink 運用に移行したため
+# Claude / Codex 関連(CLAUDE.md, skills, my.rules)はリポジトリを単一ソースとするため
 # 逆取り込みの対象外(リポジトリの agents/ を直接編集する)。
 process_path "$HOME/.bash_profile" "$REPO_DIR/mac/.bash_profile"
 process_path "$HOME/.bashrc" "$REPO_DIR/mac/.bashrc"
