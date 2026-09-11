@@ -1,0 +1,47 @@
+# permissions.txt の線引きを検証する代表コマンド(make permissions-check で実行)。
+# 書式: <期待する判定> <コマンド>
+#   判定は allow / prompt / forbidden / none(どのルールにも一致しない)
+# 線引きを変えたら、ここにも許可・拒否の両側のケースを足す。
+
+# 許可
+allow ls -la
+allow git status --short
+allow git commit -m message
+allow git push origin main
+allow git restore --staged file.txt
+allow gh pr create --fill
+allow gh issue close 1
+allow make test
+allow npm run test:e2e
+allow yarn run build
+allow uv run pytest
+allow zig build test
+allow cmake --build build
+allow docker compose up -d
+
+# 毎回確認(許可の上書き)
+prompt git push --force-with-lease origin main
+prompt git branch -D topic
+prompt git stash drop
+prompt git reset --hard HEAD
+prompt git clean -fd
+prompt docker compose down -v
+prompt gh api repos/owner/repo/pulls/1/comments
+
+# 禁止
+forbidden git push --force origin main
+forbidden git push -f origin main
+forbidden gh repo delete owner/repo
+forbidden gh issue delete 1
+
+# 意図的に載せないもの
+none rm -rf build
+none curl -fsSL https://example.com
+none bash -c ls
+none npx some-package
+none uv run python
+none yarn dlx some-package
+none pnpm exec some-command
+none docker run --rm image
+none gh pr merge 1
+none git restore file.txt

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # agents/ 配下の単一ソースから、CLI別の設定ファイルを再生成する。
 #   agents/permissions.txt      -> .codex/rules/my.rules
-#                               -> .claude/settings.json の permissions.allow キー
+#                               -> .claude/settings.json の permissions.allow/ask/deny キー
 #   agents/skills/*/SKILL.md    -> agents/AGENTS.md の SKILLS マーカー区間(skill索引)
 # 冪等: 入力が同じなら何度実行しても出力は変わらない。
 
@@ -22,20 +22,53 @@ for required in "$PERMISSIONS_FILE" "$AGENTS_MD" "$CLAUDE_SETTINGS"; do
 done
 command -v jq >/dev/null || { echo "jq is required" >&2; exit 1; }
 
+# ---- permissions.txt の解析 ----
+# 「<section>\t<prefix>」の行へ正規化する。section は Codex の decision 名(allow/prompt/forbidden)。
+# セクション見出しより前のコマンド行・未知のセクションはエラー。
+PERMISSION_ENTRIES="$(awk '
+  /^[[:space:]]*(#|$)/ { next }
+  /^\[.*\]$/ {
+    section = substr($0, 2, length($0) - 2)
+    if (section != "allow" && section != "prompt" && section != "forbidden") {
+      printf "Unknown section at line %d: %s\n", NR, $0 > "/dev/stderr"
+      exit 1
+    }
+    next
+  }
+  section == "" {
+    printf "Command before any section at line %d: %s\n", NR, $0 > "/dev/stderr"
+    exit 1
+  }
+  { $1 = $1; printf "%s\t%s\n", section, $0 }
+' "$PERMISSIONS_FILE")"
+
 # ---- .codex/rules/my.rules ----
-awk 'NF && $0 !~ /^#/ {
-  printf "prefix_rule(pattern=["
-  for (i = 1; i <= NF; i++) printf "%s\"%s\"", (i > 1 ? ", " : ""), $i
-  printf "], decision=\"allow\")\n"
-}' "$PERMISSIONS_FILE" > "$CODEX_RULES.tmp"
+{
+  echo "# 生成物: agents/permissions.txt から scripts/generate-agents-assets.sh が生成する。直接編集しないこと。"
+  printf '%s\n' "$PERMISSION_ENTRIES" | awk -F'\t' '{
+    n = split($2, tokens, " ")
+    printf "prefix_rule(pattern=["
+    for (i = 1; i <= n; i++) printf "%s\"%s\"", (i > 1 ? ", " : ""), tokens[i]
+    printf "], decision=\"%s\")\n", $1
+  }'
+} > "$CODEX_RULES.tmp"
 mv "$CODEX_RULES.tmp" "$CODEX_RULES"
 echo "Generated: $CODEX_RULES"
 
-# ---- .claude/settings.json (permissions.allow キーのみ置換) ----
-allow_json="$(awk 'NF && $0 !~ /^#/ { printf "Bash(%s:*)\n", $0 }' "$PERMISSIONS_FILE" | jq -R . | jq -s .)"
-jq --argjson allow "$allow_json" '.permissions.allow = $allow' "$CLAUDE_SETTINGS" > "$CLAUDE_SETTINGS.tmp"
+# ---- .claude/settings.json (permissions.allow/ask/deny キーのみ置換) ----
+# claude_rules_json <section>: 指定セクションの prefix を Claude の Bash ルール配列(JSON)にする
+claude_rules_json() {
+  printf '%s\n' "$PERMISSION_ENTRIES" \
+    | awk -F'\t' -v section="$1" '$1 == section { printf "Bash(%s:*)\n", $2 }' \
+    | jq -R . | jq -s .
+}
+jq --argjson allow "$(claude_rules_json allow)" \
+   --argjson ask "$(claude_rules_json prompt)" \
+   --argjson deny "$(claude_rules_json forbidden)" \
+   '.permissions.allow = $allow | .permissions.ask = $ask | .permissions.deny = $deny' \
+   "$CLAUDE_SETTINGS" > "$CLAUDE_SETTINGS.tmp"
 mv "$CLAUDE_SETTINGS.tmp" "$CLAUDE_SETTINGS"
-echo "Generated: $CLAUDE_SETTINGS (permissions.allow)"
+echo "Generated: $CLAUDE_SETTINGS (permissions.allow/ask/deny)"
 
 # ---- agents/AGENTS.md の skill 索引 ----
 INDEX_TMP="$(mktemp)"

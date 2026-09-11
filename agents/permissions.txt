@@ -1,9 +1,21 @@
-# 許可コマンドprefixの単一ソース(1行1コマンド)。
-# ここを編集して ./generate-agents-assets.sh を実行すると、
-# .codex/rules/my.rules と .claude/settings.json の permissions.allow が再生成される。
-# 生成先を直接編集しないこと。
-zig test
-zig build
+# 許可コマンドprefixの単一ソース(1行1コマンド、前方一致)。
+# ここを編集して make generate を実行すると、
+# .codex/rules/my.rules と .claude/settings.json の permissions.allow/ask/deny が再生成される。
+# 生成先を直接編集しないこと。編集後は make permissions-check で判定を検証する。
+#
+# セクション(Codex decision / Claude キー):
+#   [allow]     確認なしで実行      (allow / allow)  ※Codex ではサンドボックス外で実行される
+#   [prompt]    毎回確認            (prompt / ask)
+#   [forbidden] 実行させない        (forbidden / deny)
+# 複数一致したときは厳しい判定が勝つ(forbidden > prompt > allow)。
+# 前方一致のため、オプションを引数の後ろに置いた形(例: git push origin main --force)は捕捉できない。
+#
+# 意図的に載せないもの(サンドボックス外実行を許すと実質全許可になる/取り消せない):
+#   rm, curl, 汎用インタプリタ(bash -c, python -c, node -e, source), npx/uvx/dlx,
+#   uv run の丸ごと許可, docker run, クラウド系CLI(aws, gcloud, terraform, kubectl)
+
+[allow]
+# 読み取り・検索
 sort
 ls
 pwd
@@ -19,9 +31,152 @@ wc
 head
 tail
 tree
+diff
+stat
+file
+du
+jq
+which
+mkdir
+
+# git 参照
 git status
 git diff
 git log
 git show
 git rev-parse
 git branch
+git ls-files
+git ls-remote
+git blame
+git reflog
+git grep
+git remote -v
+git config --get
+
+# git ローカル変更(reflog で戻せるもの)
+git add
+git commit
+git switch
+git stash
+git fetch
+git pull
+git merge
+git rebase
+git cherry-pick
+git worktree
+git tag
+git mv
+git restore --staged
+
+# git 外部
+git push
+
+# gh
+gh pr view
+gh pr list
+gh pr checks
+gh pr diff
+gh pr status
+gh pr create
+gh pr edit
+gh pr comment
+gh pr close
+gh pr checkout
+gh issue view
+gh issue list
+gh issue create
+gh issue edit
+gh issue close
+gh issue comment
+gh run list
+gh run view
+gh run watch
+gh workflow list
+gh workflow view
+gh repo view
+gh search
+gh auth status
+
+# タスクランナー(ターゲット問わず)
+make
+
+# Node.js(省略形 yarn <script> は対象外。yarn run <script> を使う)
+npm install
+npm ci
+npm run
+npm test
+yarn install
+yarn run
+yarn test
+yarn add
+pnpm install
+pnpm run
+pnpm test
+pnpm add
+
+# Python
+uv sync
+uv lock
+uv add
+uv run pytest
+uv run ruff
+uv run mypy
+pytest
+ruff check
+ruff format
+mypy
+
+# Zig / ESP-IDF / CMake
+zig build
+zig test
+zig fmt
+idf.py build
+idf.py reconfigure
+idf.py size
+cmake -S
+cmake -B
+cmake --build
+ctest
+
+# Docker(ローカル操作のみ)
+docker build
+docker ps
+docker images
+docker logs
+docker inspect
+docker exec
+docker compose build
+docker compose up
+docker compose down
+docker compose ps
+docker compose logs
+docker compose exec
+docker compose run
+docker compose config
+docker compose pull
+docker compose stop
+docker compose restart
+
+[prompt]
+# 取り消せない・データを失う操作
+git branch -D
+git stash drop
+git stash clear
+git worktree remove --force
+git push --force-with-lease
+git push --delete
+git reset --hard
+git clean
+docker compose down -v
+docker compose down --volumes
+
+# 任意の API リクエストを送れるため
+gh api
+
+[forbidden]
+git push --force
+git push -f
+gh repo delete
+gh issue delete
+gh release delete
