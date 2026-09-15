@@ -154,3 +154,21 @@ java_home="/usr/lib/jvm/java-21-openjdk-amd64"
 
 # zig
 path_prepend "/opt/zig"
+
+export PATH="$PATH:$HOME/.platformio/penv/bin"
+
+alias gcf='git commit -m "fix"'
+alias gp='git push'
+
+
+# >>> Codex installer >>>
+export PATH="$HOME/.local/bin:$PATH"
+# <<< Codex installer <<<
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+export EMSDK=$HOME/emsdk
+export EMSDK_NODE=$HOME/emsdk/node/24.19.0_64bit/bin/node
+export PATH="$PATH:$HOME/emsdk:$HOME/emsdk/upstream/emscripten"
