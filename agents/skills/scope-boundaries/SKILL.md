@@ -9,7 +9,7 @@ description: Make non-goals explicit — state what is out of scope before worki
 
 ## Non-goalsを明記する
 
-- 設計・提案・READMEには、やること(goals)と並べて「やらないこと(Non-goals)・今回のスコープ外」を明記する
+- 設計・提案・READMEには、やること(goals)と並べて「やらないこと(Non-goals)・今回のスコープ外」を明記する(ドキュメントでは末尾の1節にまとめる。独立した節を並べない)
 - 作業に入る前に、対象範囲/除外範囲を明示する
 
 ## 「やらない」判断も記録する

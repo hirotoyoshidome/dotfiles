@@ -20,7 +20,7 @@
 ### フェーズ2(方針選定)の出力
 
 - 判断軸に絞る: 技術的な観点・対応コストの観点・長期的な保守コストの観点・許容できるケースの線引き。決めるべき論点と選択肢・推奨(+推奨理由)をスキャンできる分量で出す
-- コードや構成の調査はLLM側で行ってよいが、ユーザーに見せるのは判断に必要な最低限。**ファイルパス・行番号・関数名・設定値・コード断片・ドキュメント構成案・実装フェーズ分割は書かない**
+- コードや構成の調査はLLM側で行ってよいが、ユーザーに見せるのは判断に必要な最低限。**ファイルパス・行番号・関数名・設定値・コード断片・ドキュメント構成案・実装フェーズ分割は書かない**(方針選定の出力に限る。レビュー・指摘の資料では該当箇所を示す)
 - 調査・洗い出し・整理タスクの「観点を見極める段階」も同じ。何を検証対象にするか選ぶための情報だけ: 観点・何が起きたら困るか・現時点の心証(問題が確認できているか未確認か)・検証手段
 - 網羅性を優先して件数を増やさない。粗探し・エッジケースを削り、一般的に危ない「ド真ん中」に絞る。ただし圧縮の目的は文字数削減ではなく、判断に必要な情報が欠けてはいけない
 
@@ -51,6 +51,7 @@
 - **confirm-before-acting**: Do not make decisions beyond the given spec/instructions — confirm ambiguities by asking the user, avoid unrequested side changes, verify before reporting done, and keep watching long-running tasks. Use when a task has ambiguous requirements, involves design decisions, touches settings/config not explicitly requested, or runs background/long-running work. 仕様が曖昧なタスク・設計判断・設定変更・バックグラウンド実行を伴う作業で参照する。
 - **deliverable-presentation**: Put deliverables where humans actually look (repo-managed paths, not AI-only areas), state whether each file is for commit or temporary, lead with scannable tables/matrices before prose, and never use self-diminishing or negative wording in shared documents. Use when producing documents, reports, comparison/risk lists, or any file output. ドキュメント・レポート・比較表・リスク一覧などの成果物を出力するときに必ず参照する。
 - **design-first**: Present a design and get explicit agreement before implementing — no jumping straight to code on non-trivial tasks, and report deviations instead of silently correcting course. Use when starting a non-trivial implementation task, a refactoring, or any work where multiple approaches exist. 非自明な実装タスク・リファクタリング・複数方針があり得る作業の開始時に必ず参照する。
+- **document-writing**: Write documents that pass on the first draft — fix the reader, purpose and destination before writing, agree on a conclusion-first skeleton and where each fact goes, keep conversation/work traces out, and revise by diff. Use when turning investigation results into a document, report, review, runbook, or any text others will read, and when asked to revise one. 調査結果の資料化・報告・レビュー資料・手順書など他者が読む文書の執筆時、および資料の修正依頼を受けたときに必ず参照する。
 - **drive-decisions**: Present options with a recommendation and judgment axes (maintenance cost, risk, standardness), and surface interim summaries when discussions drag on. Use when presenting alternatives or after long trial-and-error. 複数案の提示・方式選定・長引いた検討で必ず参照する。
 - **enforce-by-machine**: Enforce rules with machines, not documents — propose CI checks, lint rules, contract tests, or compile-time asserts when a convention is established; prefer automation over "being careful". Use when defining conventions/constraints, proposing recurrence prevention, or reviewing manual processes. 規約・制約の新設時、再発防止策の提案時、手動運用を見つけたときに参照する。
 - **express-intent**: Express intent through types and names — design types that carry meaning, avoid nullable overuse and catch-all names (util/common/core), and document contracts at public boundaries. Use when designing types/APIs, naming modules/functions/files, or reviewing code. 型・API設計、モジュール/関数/ファイルの命名、コードレビュー時に参照する。
