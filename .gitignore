@@ -1,0 +1,2 @@
+# Claude Code が claude.ai から同期する skill の置き場(~/.claude/skills の symlink 経由で書き込まれる生成物)
+agents/skills/synced/
