@@ -1,14 +1,15 @@
 ---
 name: document-writing
-description: Write documents that pass on the first draft — fix the reader, purpose and destination before writing, agree on a conclusion-first skeleton and where each fact goes, keep conversation/work traces out, and revise by diff. Use when turning investigation results into a document, report, review, runbook, or any text others will read, and when asked to revise one. 調査結果の資料化・報告・レビュー資料・手順書など他者が読む文書の執筆時、および資料の修正依頼を受けたときに必ず参照する。
+description: Write documents that pass on the first draft — fix the reader, purpose and destination before writing, agree on a conclusion-first skeleton and where each fact goes, keep conversation/work traces out, check the finished file with document-review before submitting, and revise by diff. Use when turning investigation results into a document, report, review, runbook, or any text others will read, and when asked to revise one. 調査結果の資料化・報告・レビュー資料・手順書など他者が読む文書の執筆時、および資料の修正依頼を受けたときに必ず参照する。
 ---
 
 # Document Writing
 
-初稿で通る資料にする。読み手を決めずに書き始めない。直すときは差分で直す。
+初稿で通る資料にする。読み手を決めずに書き始めない。書き終えたらチェックしてから出す。直すときは差分で直す。
 
 ## 依存する skill
 
+- document-review: 提出前のチェックに使う
 - 同じディレクトリの `words.tsv`: 「完成文書の条件」のうち、判定が「語」の項目の辞書
 
 ## 書く前に読み手を確定する
@@ -25,7 +26,7 @@ description: Write documents that pass on the first draft — fix the reader, pu
 
 ## 完成文書の条件
 
-他者が読む文書が、提出時点で満たすべき条件の正本。書くときはこの節を満たす。他の skill には同じ条件を書かず、この節を参照させる。
+他者が読む文書が、提出時点で満たすべき条件の正本。書くときとチェックするとき(document-review)の両方がこの節を使う。他の skill には同じ条件を書かず、この節を参照させる。
 
 - 判定: **語** は `words.tsv` の辞書で機械的に検出する。**読解** は文書を読んで判定する
 - 完成文書から判定できない条件(読み手の確認・骨子の合意・置き場所・コマンドの実行確認など)はここに置かず、各 skill に置く
@@ -74,6 +75,11 @@ description: Write documents that pass on the first draft — fix the reader, pu
 | O1 | 読解 | 相手が決めること(修正方針など)を提案しない。担当外の資料(他部署向けの早見表など)を作らない |
 | O2 | 読解 | 他システムの不足を名指しせず、自分側の対処として書く |
 
+## 提出前にチェックする
+
+- ファイルに書いた文書は、書き終えたら提出・報告の前に document-review を実行し、指摘を文書と一緒に報告する。直すかはユーザーが決める(直すときは差分で)
+- チャットに出す報告は、ユーザーが依頼したときだけ document-review を実行する(頻度が高く、毎回だとコストと待ち時間がかさむため)
+
 ## 修正は差分で行う
 
 - 指摘された箇所だけを直す。全文を書き直さない
@@ -90,4 +96,5 @@ description: Write documents that pass on the first draft — fix the reader, pu
 - 読み手・用途・貼り先を確かめずに書き始めること
 - 骨子の合意なしに長い本文を書くこと
 - 「完成文書の条件」に反したまま提出すること
+- ファイルに書いた文書を、document-review を通さずに提出すること
 - 修正のたびに全文を書き直すこと、「冗長」の指摘に量を増やして応えること

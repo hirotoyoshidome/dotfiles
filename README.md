@@ -38,14 +38,24 @@ make install
 | `~/.claude/skills/<name>` | `agents/skills/<name>` | symlink またはコピー |
 | `~/.claude/settings.json` の `permissions.allow/ask/deny` | `.claude/settings.json` の同キー | 手でマージ(会社の設定など他のキーは残す) |
 
+skill の一部は他の skill に依存する(各 SKILL.md の「依存する skill」の節)。skill を選んで置くときは、依存先も同じ階層に置く。
+
+| skill | 依存先 |
+|---|---|
+| document-review | document-writing(条件と語の辞書を読む) |
+| document-writing | document-review(提出前のチェックに使う) |
+| concise-writing / deliverable-presentation | document-writing(条件を参照する) |
+
 ### 編集の流れ
 
 - **グローバル指示・skill**: `agents/` 配下を直接編集すれば、symlink 経由で Codex に即反映される(逆取り込みは不要)。skill を増やすときは `agents/skills/<name>/SKILL.md` を作り、`make install` でリンクする
 - **許可コマンド**: `agents/permissions.txt` を編集して再生成する。生成先(`.codex/rules/my.rules`、`.claude/settings.json` の `permissions.allow/ask/deny`、`AGENTS.md` の skill 索引)は直接編集しない
+- **文書の条件**: 完成文書の条件の正本は `agents/skills/document-writing/SKILL.md` の「完成文書の条件」の節、語の辞書は同じディレクトリの `words.tsv`。他の skill には書かず、ここを参照させる。変えたら `document-review` の回帰テストを回す(手順は `agents/skills/document-review/tests/README.md`)
 
 ```sh
 make generate            # 冪等。編集後に実行し、差分を確認して commit
 make permissions-check   # 代表コマンドの判定が期待どおりか検証(codex が必要)
+make doc-check-test      # 文書チェックの語検出の回帰テスト
 make install             # my.rules はコピーのため、生成後は毎回実行する
 ```
 

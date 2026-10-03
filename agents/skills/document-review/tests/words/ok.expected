@@ -1,0 +1,1 @@
+# document-review の回帰テスト用データ。check-words.sh ok.md の期待出力は空(# で始まる行は比較しない)
