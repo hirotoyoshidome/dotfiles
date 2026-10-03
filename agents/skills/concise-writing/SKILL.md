@@ -7,6 +7,10 @@ description: Keep natural-language writing to the essence — concise without lo
 
 自然言語を書きすぎない。文章は量が増えるほど読まれなくなる。ただし簡潔にしすぎて情報量が失われるのは本末転倒。
 
+## 依存する skill
+
+- document-writing: 恒久ドキュメントの条件(SKILL.md の「完成文書の条件」の節)
+
 ## 本質を捉えた範囲だけ書く
 
 - 書く前に「これは読者の判断・行動を変える情報か」で選別する
@@ -20,9 +24,8 @@ description: Keep natural-language writing to the essence — concise without lo
 
 ## 恒久ドキュメント
 
-- 調査の経緯・その場の逸話・特定インシデント由来の記述を焼き込まない。読者にとっての客観的な要件・事実だけを書く
 - 読み手が誰か(AI 向け / 人間向け)で情報の要否を決める
-- 増減する件数を書かない。「ほぼ」「実質」等の曖昧語を使わず、断定するか「未計測」と明示する
+- 経緯・逸話の焼き込み、増減する件数、曖昧語の条件は document-writing の「完成文書の条件」に従う
 
 ## preserve-reasoning との線引き
 
@@ -34,4 +37,3 @@ description: Keep natural-language writing to the essence — concise without lo
 - 背景・経緯・実装詳細の散文化(コード・履歴で分かるものの再説明)
 - 判断に効かない情報で文章量を膨らませること
 - 簡潔化を理由に判断ログ・制約・代替手段の存在を無言で削ること(preserve-reasoning 違反)
-- 増減する件数・曖昧語の記載
