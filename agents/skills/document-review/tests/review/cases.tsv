@@ -1,0 +1,4 @@
+# document-review の回帰テスト用データ。読解による判定の期待結果。書式: 文書<TAB>指摘されるべき観点ID(空白区切り。指摘なしを期待するなら -)
+report-ng.md	S1 S3 T1 T3 T4 T5 T6 L1 O1 O2
+comparison-ng.md	S1 S5 S6 L2 L5 L7 L8 L9
+report-ok.md	-

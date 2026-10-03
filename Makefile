@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install generate permissions-check bash-mac bash-ubuntu import import-apply
+.PHONY: help install generate permissions-check doc-check-test bash-mac bash-ubuntu import import-apply
 
 help: ## ターゲット一覧を表示
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "%-18s %s\n", $$1, $$2}'
@@ -13,6 +13,9 @@ generate: ## permissions.txt / SKILL.md から生成物を再生成
 
 permissions-check: ## 許可コマンドの判定を代表コマンドで検証(要codex)
 	./scripts/check-agents-permissions.sh
+
+doc-check-test: ## document-review の語検出を回帰テスト
+	./agents/skills/document-review/tests/run-words-test.sh
 
 bash-mac: ## mac用bash設定をインストール
 	./scripts/install-bash-mac.sh
