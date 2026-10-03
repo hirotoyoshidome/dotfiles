@@ -54,10 +54,13 @@ skill の一部は他の skill に依存する(各 SKILL.md の「依存する s
 
 ```sh
 make generate            # 冪等。編集後に実行し、差分を確認して commit
+make generate-check      # 生成物が最新か検証(再生成して差分があれば失敗)
 make permissions-check   # 代表コマンドの判定が期待どおりか検証(codex が必要)
 make doc-check-test      # 文書チェックの語検出の回帰テスト
 make install             # my.rules はコピーのため、生成後は毎回実行する
 ```
+
+CI(`.github/workflows/check.yml`)は PR と master への push で、`make doc-check-test` と `make generate-check` を Linux・macOS の両方で実行する。`make permissions-check`(codex が必要)と、document-review の読解による判定(LLM)は手動で行う。
 
 #### 許可コマンドの線引き
 

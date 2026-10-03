@@ -1,0 +1,26 @@
+# 結果が揺れず、外部の認証が要らない検証だけを走らせる。
+# LLM による文書判定・許可コマンドの判定(要 codex)は手動で行う。
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        # mac と Ubuntu で awk・sed 等の実装が異なるため両方で検証する
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: 文書チェックの語検出の回帰テスト
+        run: make doc-check-test
+      - name: 生成物が最新か
+        run: make generate-check
