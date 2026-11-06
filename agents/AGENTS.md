@@ -4,6 +4,7 @@
 
 - 回答は常に日本語で書く
 - PR本文・issue・コミット説明・ユーザー向けドキュメントも日本語で書く
+- CI の結果・通知への返答などの短い報告も日本語で書く(直前の通知が英語でも引きずられない)
 
 ## タスク進行のフェーズを分ける(最重要)
 
@@ -40,6 +41,8 @@
 
 - 調査に必要な権限はできるだけ最初にまとめて申請し、何のための調査かを説明する(コマンドだけ許可を求めない)
 - 調査の過程は出力する。暗黙に調査を進めてコマンドの許可同意だけを委ねると判断できない
+- コマンドを打つ前に、問い(何を確かめるか)・読む場所(一次情報)・判定基準を番号付きで出し、関連するコマンドは1回にまとめる。候補を比べる調査は、候補×確認観点の表を先に出す
+- 対象が数ファイルに絞れている調査はサブエージェントを使わず自分で読み、分かった時点で報告する。小さな論点を小刻みに質問しない
 - **課金が発生し得る操作は、実行前に概算額を示して承認を得る**(読み取りだけのコマンドでも同じ)。対象は、ログ・メトリクスの取得や集計、クエリ(CloudWatch の get-metric-statistics・filter-log-events・Logs Insights、Athena、BigQuery、Cost Explorer など)。示すものは、実行するコマンド・呼び出し回数とデータ量の見込み・単価・概算額・無料枠の有無。単価が確かめられないものは「未確認」と書き、上限の見積もりを示す。課金は実行してからでは取り消せないため
 
 ## 基本方針(詳細は各skill参照)
@@ -58,6 +61,7 @@
 - **enforce-by-machine**: Enforce rules with machines, not documents — propose CI checks, lint rules, contract tests, or compile-time asserts when a convention is established; prefer automation over "being careful". Use when defining conventions/constraints, proposing recurrence prevention, or reviewing manual processes. 規約・制約の新設時、再発防止策の提案時、手動運用を見つけたときに参照する。
 - **express-intent**: Express intent through types and names — design types that carry meaning, avoid nullable overuse and catch-all names (util/common/core), and document contracts at public boundaries. Use when designing types/APIs, naming modules/functions/files, or reviewing code. 型・API設計、モジュール/関数/ファイルの命名、コードレビュー時に参照する。
 - **git-workflow**: Git operation rules for this user — staged-only commits, no unsolicited git actions, branch naming, and PR conventions. Use whenever a task involves git commit, branch, push, or pull request (PR) creation. コミット・ブランチ作成・push・PR作成を行うときに必ず参照する。
+- **llm-tool-design**: Design LLM-facing tools (MCP servers, function calling) so the model gets the input right the first time — keep full parity with the reference UI, carry requirements in the input schema instead of after-the-fact validation, shape arguments for the LLM instead of copying the upstream API, and make guidance text executable on every client. Use when designing or reviewing tool inputs, error messages, or guidance for LLM clients. LLM 向けツール(MCP・function calling)の入力・エラー文言・案内文の設計とレビューで参照する。
 - **preserve-reasoning**: Preserve the reasoning path — record why decisions were made, keep rejected alternatives with reasons, never silently delete someone's recorded thinking, and never silently drop information when summarizing or merging. Use when reporting changes, writing PR bodies or docs, shortening or merging existing documents, and especially when editing the user's notes/memos. 変更報告・PR本文・ドキュメント作成時、既存ドキュメントの要約・統合時、特にユーザーのメモ編集時に必ず参照する。
 - **reproducible-runbook**: Write setup/operation docs as reproducible runbooks — copy-pasteable commands, CLI-first, and troubleshooting recorded as problem+solution pairs. Use when writing READMEs, setup guides, operational procedures, or recording troubleshooting. README・セットアップ手順・運用手順・トラブルシューティングの記録時に参照する。
 - **risk-calibration**: Apply strict-by-principle handling to security, auth, and data correctness even for low-probability risks, while deliberately accepting rare functional edge cases when maintenance cost outweighs benefit — and state which regime applies before proposing. Use when assessing risks, deciding how far to harden, reviewing for bugs, or scoping edge-case handling. リスク評価・エッジケース対応の範囲決め・堅牢化の程度の判断・バグ調査のスコープ決めで必ず参照する。

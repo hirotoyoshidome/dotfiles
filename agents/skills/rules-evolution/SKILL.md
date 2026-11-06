@@ -21,6 +21,7 @@ description: Evolve the rules themselves — when the same correction or request
 
 - skill間の重複・矛盾に気づいたら、統合や境界整理を提案する
 - 実態と合わなくなったルールは放置せず、更新または削除を提案する
+- ルールを足す前に、既存の条件と統合できないかを確かめる。指摘ごとに行を足し続けない
 
 ## 定期的に棚卸しする
 
