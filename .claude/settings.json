@@ -137,7 +137,9 @@
       "Bash(git clean:*)",
       "Bash(docker compose down -v:*)",
       "Bash(docker compose down --volumes:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api * -f *)",
+      "Bash(gh api * -F *)",
+      "Bash(gh api graphql*)"
     ],
     "deny": [
       "Bash(git push --force:*)",
@@ -148,6 +150,18 @@
     ]
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-fable-5": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "tui": "default",
+  "switchModelsOnFlag": false,
   "skipAutoPermissionPrompt": true
 }
